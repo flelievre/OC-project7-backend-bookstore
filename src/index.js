@@ -8,6 +8,9 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const {
+  verifyToken,
+} = require('./middlewares');
 
 const {
   PORT = 4000,
@@ -29,5 +32,6 @@ const server = http.Server(app);
 
 app.post('/api/auth/signup', bodyParser.json(), userSignupHandle);
 app.post('/api/auth/login', bodyParser.json(), userLoginHandle);
+app.post('/api/books', verifyToken, bodyParser.json(), ({ decoded }) => console.log(decoded));
 
 server.listen(PORT, () => console.log(`[+] 🚀 Server listening on port ${PORT}`));

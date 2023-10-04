@@ -4,6 +4,11 @@ const {
 const {
   mongodbClient,
 } = require('../../mongodb/mongodbClient');
+const jwt = require('jsonwebtoken');
+
+const {
+  JWT_SECRET = '',
+} = process.env;
 
 const userLoginExecute = async ({
   body: {
@@ -29,9 +34,19 @@ const userLoginExecute = async ({
     _id: userId,
   } = user;
 
+  const payload = {
+    userId,
+  };
+
+  const options = {
+    expiresIn: '1h',
+  };
+
+  const token = jwt.sign(payload, JWT_SECRET, options);
+
   const responseToClient = {
     userId,
-    token: 'token',
+    token,
   };
 
   return ({
