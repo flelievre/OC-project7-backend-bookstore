@@ -9,6 +9,7 @@ const verifyToken = (req, res, next) => {
     headers: {
       authorization: bearerHeader,
     } = {},
+    body,
   } = req;
 
   const [,token] = bearerHeader.split(' ');
@@ -17,12 +18,12 @@ const verifyToken = (req, res, next) => {
     return res.status(403).json({ message: 'Unauthorized request' });
   }
 
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, JWT_SECRET, (err, userJwtToken) => {
     if (err) {
       return res.status(401).json({ message: 'Failed to authenticate token' });
     }
 
-    req.decoded = decoded;
+    req.userJwtToken = userJwtToken;
     next();
   });
 };

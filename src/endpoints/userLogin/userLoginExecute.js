@@ -39,7 +39,7 @@ const userLoginExecute = async ({
   };
 
   const options = {
-    expiresIn: '1h',
+    expiresIn: '10d',
   };
 
   const token = jwt.sign(payload, JWT_SECRET, options);
