@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const {
   MongoClient,
 } = require('mongodb');
@@ -16,7 +17,13 @@ let mongodb = null;
 console.log('[+] Connecting to DB...');
 (async () => {
   await mongodbClient.connect();
+  await mongoose.connect(
+    uri,
+    {
+      dbName: 'monvieuxgrimoir',
+    });
 })();
 console.log('[✔] Connected to DB !');
 
 exports.mongodbClient = mongodbClient;
+exports.mongoose = mongoose;

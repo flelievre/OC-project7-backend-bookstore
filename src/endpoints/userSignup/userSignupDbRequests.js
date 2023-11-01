@@ -3,22 +3,22 @@ const {
 } = require('../../mongodb/mongodbClient');
 
 const userSignupDbRequests = async ({
-  body: {
-    email = '',
-  } = {},
+  // body: {
+  //   email = '',
+  // } = {},
 } = {}) => {
-  const mongodb = mongodbClient.db('monvieuxgrimoir');
-  const usersCollection = mongodb.collection('users');
+  // const mongodb = mongodbClient.db('monvieuxgrimoir');
+  // const usersCollection = mongodb.collection('users');
 
-  const findResults = await usersCollection.find({
-    email,
-  });
+  // const findResults = await usersCollection.find({
+  //   email,
+  // });
   
-  const findResultsArray = await findResults.toArray();
+  // const findResultsArray = await findResults.toArray();
 
-  return ({
-    nbUsersMatchingEmail: findResultsArray.length,
-  });
+  // return ({
+  //   nbUsersMatchingEmail: findResultsArray.length,
+  // });
 };
 
 exports.default = userSignupDbRequests;

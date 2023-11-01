@@ -2,8 +2,10 @@ const {
   hash,
 } = require('../../functions');
 const {
-  mongodbClient,
+  // mongodbClient,
+  mongoose,
 } = require('../../mongodb/mongodbClient');
+const UserModel = require('./userSignup.model/UserModel').default;
 
 const userSignupExecute = async ({
   body: {
@@ -11,15 +13,17 @@ const userSignupExecute = async ({
     password = '',
   } = {},
 } = {}) => {
-  const mongodb = mongodbClient.db('monvieuxgrimoir');
-  const usersCollection = mongodb.collection('users');
+  // const mongodb = mongodbClient.db('monvieuxgrimoir');
+  // const usersCollection = mongodb.collection('users');
 
   const hashedPassword = hash(password);
 
-  const result = await usersCollection.insertOne({
+  const newUser = new UserModel({
     email,
     password: hashedPassword,
   });
+
+  await newUser.save();
 
   const responseToClient = {
     message: 'Sign up successful',
